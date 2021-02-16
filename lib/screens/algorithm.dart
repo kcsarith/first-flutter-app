@@ -20,8 +20,7 @@ class _AlgorithmFormState extends State<AlgorithmForm> {
     TextStyle textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello"),
-        backgroundColor: Colors.white,
+        title: Text("Loading Dock Problem"),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,

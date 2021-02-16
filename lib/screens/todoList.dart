@@ -22,6 +22,9 @@ class TodoListState extends State {
       getData();
     }
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Todo List'),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,
         items: [

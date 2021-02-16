@@ -20,8 +20,7 @@ class _FuelFormState extends State<FuelForm> {
     TextStyle textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello"),
-        backgroundColor: Colors.white,
+        title: Text("Fuel Calculator"),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,
