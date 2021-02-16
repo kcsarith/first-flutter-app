@@ -36,6 +36,7 @@ class _FuelFormState extends State<FuelForm> {
           setState(() => currentTab = index);
           switch (index){
             case 0:
+              Navigator.pushNamed(context, '/');
               break;
             case 1:
               Navigator.pushNamed(context, '/random_words');
@@ -44,7 +45,6 @@ class _FuelFormState extends State<FuelForm> {
               Navigator.pushNamed(context, '/todo');
               break;
             case 3:
-              Navigator.pushNamed(context, '/fuel');
               break;
             case 4:
               Navigator.pushNamed(context, '/algo');
