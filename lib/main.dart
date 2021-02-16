@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           '/random_words': (context)=>RandomWords(),
           '/todo': (context)=>TodoList(),
           '/fuel': (context)=>FuelForm(),
-          '/algo': (context)=>TodoList(),
+          '/algo': (context)=>AlgorithmForm(),
         },
         // home: new MyHomePage(),
     );
