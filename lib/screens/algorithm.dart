@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class FuelForm extends StatefulWidget {
+class AlgorithmForm extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _FuelFormState();
+  State<StatefulWidget> createState() => _AlgorithmFormState();
 }
 
-class _FuelFormState extends State<FuelForm> {
+class _AlgorithmFormState extends State<AlgorithmForm> {
   String result = '';
   String _currency = 'Dollars';
 
-  int currentTab = 3;
+  int currentTab = 4;
   final double _formDistance = 5.0;
   final _currencies = ['Dollars', 'Euro', 'Pounds'];
   TextEditingController distanceController = new TextEditingController();
@@ -36,6 +36,7 @@ class _FuelFormState extends State<FuelForm> {
           setState(() => currentTab = index);
           switch (index){
             case 0:
+              Navigator.pushNamed(context, '/');
               break;
             case 1:
               Navigator.pushNamed(context, '/random_words');
@@ -47,7 +48,6 @@ class _FuelFormState extends State<FuelForm> {
               Navigator.pushNamed(context, '/fuel');
               break;
             case 4:
-              Navigator.pushNamed(context, '/algo');
               break;
             default:
               return null;
