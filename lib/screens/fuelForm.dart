@@ -8,6 +8,8 @@ class FuelForm extends StatefulWidget {
 class _FuelFormState extends State<FuelForm> {
   String result = '';
   String _currency = 'Dollars';
+
+  int currentTab = 3;
   final double _formDistance = 5.0;
   final _currencies = ['Dollars', 'Euro', 'Pounds'];
   TextEditingController distanceController = new TextEditingController();
@@ -20,6 +22,37 @@ class _FuelFormState extends State<FuelForm> {
       appBar: AppBar(
         title: Text("hello"),
         backgroundColor: Colors.white,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        items: [
+          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Namer', icon: Icon(Icons.title), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Todo', icon: Icon(Icons.assignment_outlined), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Fuel', icon: Icon(Icons.attach_money), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Algo', icon: Icon(Icons.code_sharp), backgroundColor: Colors.blue,),
+        ],
+        onTap: (int index){
+          setState(() => currentTab = index);
+          switch (index){
+            case 0:
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/random_words');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/todo');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/fuel');
+              break;
+            case 4:
+              Navigator.pushNamed(context, '/algo');
+              break;
+            default:
+              return null;
+          }
+        } ,
       ),
       body: Container(
         padding: EdgeInsets.all(40),
