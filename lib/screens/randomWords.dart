@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
+import 'package:startup_namer/util/globals.dart' as globals;
+
 class RandomWords extends StatefulWidget{
   @override
-  _RandomWordsState createState()=> _RandomWordsState();
+  RandomWordsState createState()=> RandomWordsState();
 }
 
-class _RandomWordsState extends State<RandomWords>{
-  final List<WordPair> _suggestions = <WordPair>[];
-  final Set _saved =Set<WordPair>();
+class RandomWordsState extends State<RandomWords>{
+  // final List<WordPair> suggestions = globals.suggestions;
   final TextStyle _biggerFont = const TextStyle(fontSize:18);
-
+  int currentTab = 1;
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -22,12 +23,35 @@ class _RandomWordsState extends State<RandomWords>{
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: currentTab,
         items: [
-          BottomNavigationBarItem(label: 'Startup Namer', icon: Icon(Icons.home), backgroundColor: Colors.blue,),
-          BottomNavigationBarItem(label: 'Fuel Cost', icon: Icon(Icons.add_to_queue), backgroundColor: Colors.blue,),
-          BottomNavigationBarItem(label: 'Todo List', icon: Icon(Icons.add_to_queue), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Namer', icon: Icon(Icons.title), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Todo', icon: Icon(Icons.assignment_outlined), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Fuel', icon: Icon(Icons.attach_money), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Algo', icon: Icon(Icons.code_sharp), backgroundColor: Colors.blue,),
         ],
+        onTap: (int index){
+          setState(() => currentTab = index);
+          switch (index){
+            case 0:
+              Navigator.pushNamed(context, '/');
+              break;
+            case 1:
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/todo');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/fuel');
+              break;
+            case 4:
+              Navigator.pushNamed(context, '/algo');
+              break;
+            default:
+              return null;
+          }
+        } ,
       ),
       body: _buildSuggestions(),
     );
@@ -41,15 +65,15 @@ class _RandomWordsState extends State<RandomWords>{
         }
         final int index = i~/2;
 
-        if (index >= _suggestions.length){
-          _suggestions.addAll(generateWordPairs().take(10));
+        if (index >= globals.suggestions.length){
+          globals.suggestions.addAll(generateWordPairs().take(10));
         }
-        return _buildRow(_suggestions[index]);
+        return _buildRow(globals.suggestions[index]);
       },
     );
   }
   Widget _buildRow(WordPair pair){
-    final alreadySaved = _saved.contains(pair);
+    final alreadySaved = globals.savedSuggestions.contains(pair);
     return ListTile(
       title: Text(
           pair.asPascalCase,
@@ -62,9 +86,9 @@ class _RandomWordsState extends State<RandomWords>{
       onTap: (){
         setState(() {
           if(alreadySaved){
-            _saved.remove(pair);
+            globals.savedSuggestions.remove(pair);
           }else{
-            _saved.add(pair);
+            globals.savedSuggestions.add(pair);
           }
         });
       },
@@ -75,7 +99,7 @@ class _RandomWordsState extends State<RandomWords>{
     Navigator.of(context).push(
         MaterialPageRoute<void>(
             builder:(BuildContext context){
-              final tiles = _saved.map((pair) {
+              final tiles = globals.savedSuggestions.map((pair) {
                 return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
               });
               final divided = ListTile.divideTiles(
@@ -87,6 +111,7 @@ class _RandomWordsState extends State<RandomWords>{
                   title: Text('Saved Suggestions'),
                 ),
                 body: ListView(children: divided),
+
               );
             }
         )

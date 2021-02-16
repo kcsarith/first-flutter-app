@@ -13,6 +13,7 @@ class TodoListState extends State {
   DbHelper helper = DbHelper();
   List<Todo> todos;
   int count = 0;
+  int currentTab = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,37 @@ class TodoListState extends State {
       getData();
     }
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        items: [
+          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Namer', icon: Icon(Icons.title), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Todo', icon: Icon(Icons.assignment_outlined), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Fuel', icon: Icon(Icons.attach_money), backgroundColor: Colors.blue,),
+          BottomNavigationBarItem(label: 'Algo', icon: Icon(Icons.code_sharp), backgroundColor: Colors.blue,),
+        ],
+        onTap: (int index){
+          setState(() => currentTab = index);
+          switch (index){
+            case 0:
+              Navigator.pushNamed(context, '/');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/random_words');
+              break;
+            case 2:
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/fuel');
+              break;
+            case 4:
+              Navigator.pushNamed(context, '/algo');
+              break;
+            default:
+              return null;
+          }
+        } ,
+      ),
       body: todoListItems(),
       floatingActionButton: FloatingActionButton(
         onPressed:() {
